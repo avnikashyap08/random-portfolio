@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Avni Kashyap · Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Caveat:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #e8d5d0;
+    font-family: 'Space Mono', monospace;
+    overflow-x: hidden;
+    cursor: crosshair;
+  }
+
+  :root {
+    --mauve: #c4778c;
+    --mauve-dark: #8f4a60;
+    --mauve-light: #e8d5d0;
+    --mauve-deep: #6b3348;
+    --cream: #f5ede8;
+    --ink: #2a1a1f;
+    --star-white: #fff8f5;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    opacity: 0.5;
+  }
+
+  .page { position: relative; z-index: 1; }
+
+  .hero {
+    background: var(--mauve);
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-dots {
+    position: absolute; inset: 0;
+    background-image: radial-gradient(circle, rgba(255,248,245,0.15) 1px, transparent 1px);
+    background-size: 18px 18px;
+  }
+
+  .hero-left {
+    padding: 60px 40px 60px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .handle {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--cream);
+    opacity: 0.7;
+    letter-spacing: 0.15em;
+    margin-bottom: 32px;
+  }
+
+  .meet-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--star-white);
+    letter-spacing: 0.05em;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(72px, 12vw, 110px);
+    font-weight: 900;
+    color: var(--star-white);
+    line-height: 0.88;
+    letter-spacing: -0.02em;
+    margin: 8px 0 24px;
+  }
+
+  .hero-sub {
+    display: inline-block;
+    background: var(--ink);
+    color: var(--star-white);
+    font-family: 'Caveat', cursive;
+    font-size: 18px;
+    padding: 6px 16px;
+    border-radius: 2px;
+    margin-bottom: 32px;
+  }
+
+  .hero-desc {
+    font-family: 'Caveat', cursive;
+    font-size: 15px;
+    color: var(--cream);
+    opacity: 0.85;
+    line-height: 1.6;
+    max-width: 300px;
+    border-left: 2px solid var(--cream);
+    padding-left: 16px;
+  }
+
+  .hero-right {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding: 0 40px 0 0;
+    z-index: 2;
+  }
+
+  .hero-photo-frame {
+    width: 320px;
+    height: 480px;
+    background: var(--mauve-dark);
+    position: relative;
+    overflow: hidden;
+    clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%);
+  }
+
+  .hero-photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    filter: grayscale(20%);
+  }
+
+  .photo-placeholder {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Caveat', cursive;
+    font-size: 16px;
+    color: rgba(255,248,245,0.5);
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .photo-placeholder .big-initial {
+    font-family: 'Playfair Display', serif;
+    font-size: 120px;
+    font-weight: 900;
+    color: rgba(255,248,245,0.12);
+    line-height: 1;
+  }
+
+  .star { position: absolute; color: var(--star-white); font-size: 32px; line-height: 1; font-family: serif; }
+  .star-1 { top: 40px; right: 60px; font-size: 48px; opacity: 0.9; }
+  .star-2 { bottom: 120px; left: 50px; font-size: 28px; opacity: 0.6; }
+  .star-3 { top: 50%; right: 20px; font-size: 20px; opacity: 0.4; }
+
+  .sig {
+    position: absolute;
+    bottom: 40px; left: 60px;
+    font-family: 'Caveat', cursive;
+    font-size: 28px;
+    color: var(--cream);
+    opacity: 0.8;
+    transform: rotate(-3deg);
+    z-index: 2;
+  }
+
+  .nav-strip {
+    background: var(--ink);
+    padding: 14px 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-strip span {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--cream);
+    opacity: 0.6;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .nav-strip .nav-links { display: flex; gap: 32px; }
+
+  .nav-strip a {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--cream);
+    opacity: 0.7;
+    text-decoration: none;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    transition: opacity 0.2s;
+  }
+
+  .nav-strip a:hover { opacity: 1; }
+
+  .about-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 70vh;
+    background: var(--cream);
+  }
+
+  .about-left {
+    padding: 80px 60px;
+    background: var(--mauve-light);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .section-label {
+    font-family: 'Caveat', cursive;
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mauve-dark);
+    margin-bottom: 12px;
+  }
+
+  .big-word {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(60px, 10vw, 90px);
+    font-weight: 900;
+    font-style: italic;
+    color: var(--mauve-dark);
+    line-height: 0.9;
+    margin-bottom: 32px;
+  }
+
+  .collage-strip { display: flex; gap: 6px; flex-wrap: wrap; }
+
+  .collage-item {
+    width: 80px;
+    height: 90px;
+    background: var(--mauve);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Caveat', cursive;
+    font-size: 12px;
+    color: var(--cream);
+    text-align: center;
+    padding: 6px;
+    transform: rotate(var(--r, 0deg));
+    flex-shrink: 0;
+    line-height: 1.3;
+  }
+
+  .about-right {
+    padding: 80px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .hello-tag {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 20px;
+  }
+
+  .about-body {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    line-height: 1.9;
+    color: var(--ink);
+    opacity: 0.75;
+    max-width: 380px;
+    margin-bottom: 28px;
+  }
+
+  .interest-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+
+  .tag {
+    font-family: 'Caveat', cursive;
+    font-size: 14px;
+    padding: 4px 12px;
+    border: 1.5px solid var(--mauve-dark);
+    border-radius: 20px;
+    color: var(--mauve-dark);
+  }
+
+  .skills-section {
+    background: var(--mauve-deep);
+    padding: 80px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .skills-bg-text {
+    position: absolute;
+    font-family: 'Playfair Display', serif;
+    font-size: 200px;
+    font-weight: 900;
+    color: rgba(255,248,245,0.04);
+    top: -20px; right: -20px;
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .skill-cell {
+    background: rgba(255,248,245,0.05);
+    padding: 32px 28px;
+    border: 1px solid rgba(255,248,245,0.08);
+    transition: background 0.3s;
+    cursor: default;
+  }
+
+  .skill-cell:hover { background: rgba(255,248,245,0.1); }
+
+  .skill-icon { font-size: 24px; margin-bottom: 12px; }
+
+  .skill-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 8px;
+  }
+
+  .skill-items {
+    font-family: 'Caveat', cursive;
+    font-size: 14px;
+    color: rgba(245,237,232,0.6);
+    line-height: 1.7;
+  }
+
+  .skills-header { margin-bottom: 40px; position: relative; z-index: 1; }
+
+  .projects-section { padding: 80px 60px; background: var(--cream); }
+
+  .section-header-row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 48px;
+  }
+
+  .section-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(40px, 7vw, 64px);
+    font-weight: 900;
+    color: var(--ink);
+    line-height: 0.9;
+  }
+
+  .project-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .project-card {
+    background: var(--mauve);
+    padding: 40px 36px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s;
+  }
+
+  .project-card:hover { transform: translateY(-4px); }
+
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 80px; height: 80px;
+    background: rgba(0,0,0,0.18);
+    clip-path: polygon(100% 0, 0 0, 100% 100%);
+  }
+
+  .project-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 56px;
+    font-weight: 900;
+    color: rgba(255,248,245,0.15);
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+
+  .project-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--star-white);
+    margin-bottom: 12px;
+  }
+
+  .project-tech {
+    font-family: 'Caveat', cursive;
+    font-size: 13px;
+    color: rgba(255,248,245,0.6);
+    margin-bottom: 16px;
+    letter-spacing: 0.05em;
+  }
+
+  .project-desc {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    line-height: 1.8;
+    color: rgba(255,248,245,0.75);
+  }
+
+  .project-star {
+    position: absolute;
+    bottom: 20px; right: 24px;
+    font-size: 20px;
+    color: rgba(255,248,245,0.3);
+  }
+
+  .exp-section {
+    background: var(--mauve-light);
+    padding: 80px 60px;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 60px;
+  }
+
+  .exp-left { display: flex; flex-direction: column; justify-content: center; }
+
+  .exp-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 56px;
+    font-weight: 900;
+    font-style: italic;
+    color: var(--mauve-deep);
+    line-height: 0.9;
+    margin-bottom: 20px;
+  }
+
+  .exp-quote {
+    font-family: 'Caveat', cursive;
+    font-size: 15px;
+    color: var(--mauve-dark);
+    line-height: 1.6;
+    border-top: 1.5px solid var(--mauve);
+    padding-top: 16px;
+  }
+
+  .exp-right { display: flex; flex-direction: column; gap: 24px; }
+
+  .exp-card {
+    border-left: 3px solid var(--mauve);
+    padding-left: 24px;
+  }
+
+  .exp-role {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+
+  .exp-org {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--mauve-dark);
+    letter-spacing: 0.1em;
+    margin-bottom: 12px;
+  }
+
+  .exp-bullets {
+    list-style: none;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    line-height: 1.9;
+    color: var(--ink);
+    opacity: 0.7;
+  }
+
+  .exp-bullets li::before { content: '→ '; color: var(--mauve); }
+
+  .visual-section {
+    background: var(--ink);
+    padding: 80px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .v-label {
+    font-family: 'Playfair Display', serif;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--mauve);
+    margin-bottom: 8px;
+  }
+
+  .v-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 56px;
+    font-weight: 900;
+    color: var(--cream);
+    line-height: 0.9;
+    margin-bottom: 48px;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+
+  .gallery-item {
+    aspect-ratio: 3/4;
+    background: var(--mauve-dark);
+    display: flex;
+    align-items: flex-end;
+    padding: 16px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s;
+  }
+
+  .gallery-item:nth-child(2) { background: var(--mauve); margin-top: -30px; }
+  .gallery-item:nth-child(3) { background: var(--mauve-deep); margin-top: 20px; }
+  .gallery-item:nth-child(4) { background: #b06070; }
+  .gallery-item:hover { transform: scale(1.02); z-index: 2; }
+
+  .gallery-item-label {
+    font-family: 'Caveat', cursive;
+    font-size: 12px;
+    color: rgba(255,248,245,0.7);
+    position: relative;
+    z-index: 1;
+  }
+
+  .gallery-item .g-num {
+    position: absolute;
+    top: 16px; right: 16px;
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 900;
+    color: rgba(255,248,245,0.12);
+  }
+
+  .thanks-section {
+    background: var(--mauve);
+    padding: 100px 60px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .thanks-dots {
+    position: absolute; inset: 0;
+    background-image: radial-gradient(circle, rgba(255,248,245,0.15) 1px, transparent 1px);
+    background-size: 18px 18px;
+  }
+
+  .thanks-left { position: relative; z-index: 2; }
+
+  .thanks-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(56px, 10vw, 100px);
+    font-weight: 900;
+    color: var(--star-white);
+    line-height: 0.85;
+    margin-bottom: 28px;
+    letter-spacing: -0.02em;
+  }
+
+  .thanks-sub {
+    font-family: 'Caveat', cursive;
+    font-size: 16px;
+    color: rgba(255,248,245,0.75);
+    max-width: 300px;
+    line-height: 1.6;
+  }
+
+  .thanks-right {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .contact-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    background: rgba(255,248,245,0.1);
+    border: 1px solid rgba(255,248,245,0.15);
+  }
+
+  .contact-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,248,245,0.5);
+    min-width: 60px;
+  }
+
+  .contact-val {
+    font-family: 'Caveat', cursive;
+    font-size: 16px;
+    color: var(--cream);
+  }
+
+  .footer-strip {
+    background: var(--ink);
+    padding: 20px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-strip p {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: rgba(245,237,232,0.4);
+    letter-spacing: 0.1em;
+  }
+
+  .footer-star { color: var(--mauve); font-size: 16px; }
+
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .revealed { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 768px) {
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-right { display: none; }
+    .hero-left { padding: 60px 28px; }
+    .about-section { grid-template-columns: 1fr; }
+    .about-left { padding: 60px 28px; }
+    .about-right { padding: 60px 28px; }
+    .skills-grid { grid-template-columns: 1fr 1fr; }
+    .project-cards { grid-template-columns: 1fr; }
+    .exp-section { grid-template-columns: 1fr; padding: 60px 28px; }
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    .thanks-section { grid-template-columns: 1fr; padding: 60px 28px; }
+    .nav-strip { padding: 14px 28px; }
+    .nav-strip .nav-links { gap: 16px; }
+    .projects-section, .skills-section, .visual-section { padding: 60px 28px; }
+    .footer-strip { padding: 20px 28px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <section class="hero" id="top">
+    <div class="hero-dots"></div>
+    <div class="hero-left">
+      <div class="handle">avnikashyap777@gmail.com &nbsp;|&nbsp; KIIT, Bhubaneswar</div>
+      <div class="meet-text">meet the</div>
+      <div class="hero-name">AVNI</div>
+      <div class="hero-sub">&#10038; cs student &middot; designer &middot; builder</div>
+      <p class="hero-desc">B.Tech CSE (AI &amp; ML) &middot; 2nd year &middot; turning 20 in June &middot; obsessed with making things that look good and actually work</p>
+    </div>
+    <div class="hero-right">
+      <div class="hero-photo-frame">
+        <img src="photo.jpg" alt="Avni Kashyap" />
+        <div class="photo-placeholder">
+          <div class="big-initial">A</div>
+          <span>add photo.jpg here</span>
+        </div>
+      </div>
+    </div>
+    <div class="star star-1">&#10022;</div>
+    <div class="star star-2">&#9733;</div>
+    <div class="star star-3">&#10038;</div>
+    <div class="sig">A. Kashyap</div>
+  </section>
+
+  <nav class="nav-strip">
+    <span>@avni &middot; portfolio &middot; 2025</span>
+    <div class="nav-links">
+      <a href="#about">about</a>
+      <a href="#skills">skills</a>
+      <a href="#projects">projects</a>
+      <a href="#contact">contact</a>
+    </div>
+    <span>KIIT &middot; CSE &middot; AI &amp; ML</span>
+  </nav>
+
+  <section class="about-section" id="about">
+    <div class="about-left">
+      <div class="section-label">scroll down &rarr;</div>
+      <div class="big-word">about<br>my<br>self</div>
+      <div class="collage-strip">
+        <div class="collage-item" style="--r:-4deg">Swiftie</div>
+        <div class="collage-item" style="--r:2deg">pro baker</div>
+        <div class="collage-item" style="--r:-2deg">pinterest girlie</div>
+        <div class="collage-item" style="--r:3deg">ZNMD &amp; YJHD</div>
+        <div class="collage-item" style="--r:-3deg">journaling</div>
+        <div class="collage-item" style="--r:1deg">swimming</div>
+      </div>
+    </div>
+    <div class="about-right reveal">
+      <div class="hello-tag">hello! &#10038;</div>
+      <p class="about-body">
+        I'm Avni — a 2nd year CS student at KIIT, specialising in AI &amp; ML. I love building things from scratch, whether that's a full-stack web app, a quiz game, or a mood tracker that actually slaps.<br><br>
+        I started almost from zero in web dev and now I'm shipping projects. Fast learner, hands-on builder, terrible at sitting still.
+      </p>
+      <div class="interest-tags">
+        <span class="tag">Python</span>
+        <span class="tag">React</span>
+        <span class="tag">FastAPI</span>
+        <span class="tag">PostgreSQL</span>
+        <span class="tag">Figma</span>
+        <span class="tag">Canva</span>
+        <span class="tag">AI/ML</span>
+        <span class="tag">full-stack</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="skills-section" id="skills">
+    <div class="skills-bg-text">SKILLS</div>
+    <div class="skills-header reveal">
+      <div class="section-label" style="color:rgba(245,237,232,0.5)">what i work with</div>
+      <div style="font-family:'Playfair Display',serif;font-size:clamp(40px,6vw,56px);font-weight:900;color:var(--cream);line-height:0.9">
+        the<br>toolkit &#10022;
+      </div>
+    </div>
+    <div class="skills-grid reveal">
+      <div class="skill-cell">
+        <div class="skill-icon">&#9000;</div>
+        <div class="skill-title">Programming</div>
+        <div class="skill-items">Python &middot; C &middot; Java (basic) &middot; JavaScript</div>
+      </div>
+      <div class="skill-cell">
+        <div class="skill-icon">&#127760;</div>
+        <div class="skill-title">Web Tech</div>
+        <div class="skill-items">HTML &middot; CSS &middot; JavaScript &middot; React &middot; FastAPI</div>
+      </div>
+      <div class="skill-cell">
+        <div class="skill-icon">&#128449;</div>
+        <div class="skill-title">Backend &amp; DB</div>
+        <div class="skill-items">PostgreSQL &middot; RESTful APIs &middot; Render &middot; GitHub Pages</div>
+      </div>
+      <div class="skill-cell">
+        <div class="skill-icon">&#127912;</div>
+        <div class="skill-title">Design</div>
+        <div class="skill-items">Figma &middot; Adobe Photoshop &middot; Canva</div>
+      </div>
+      <div class="skill-cell">
+        <div class="skill-icon">&#128295;</div>
+        <div class="skill-title">Dev Tools</div>
+        <div class="skill-items">VS Code &middot; GitHub &middot; Git</div>
+      </div>
+      <div class="skill-cell">
+        <div class="skill-icon">&#10024;</div>
+        <div class="skill-title">Currently learning</div>
+        <div class="skill-items">AI/ML &middot; Vite &middot; advanced React &middot; data structures</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="projects-section" id="projects">
+    <div class="section-header-row reveal">
+      <div>
+        <div class="section-label">things i've built</div>
+        <div class="section-heading">my<br>projects &#10038;</div>
+      </div>
+      <div style="font-family:'Caveat',cursive;font-size:14px;color:var(--mauve-dark);text-align:right;line-height:1.8">
+        shipped to the real web.<br>not just localhost.
+      </div>
+    </div>
+    <div class="project-cards reveal">
+
+      <div class="project-card" style="background:var(--mauve)">
+        <div class="project-num">01</div>
+        <div class="project-name">Around the Corner</div>
+        <div class="project-tech">Python &middot; FastAPI &middot; PostgreSQL &middot; HTML/CSS/JS</div>
+        <p class="project-desc">
+          Full-stack web app to help students discover food, hangout &amp; essential spots near college. Normalized PostgreSQL DB, RESTful API with filtering by distance/cost/rating, live reviews. Deployed on Render + GitHub Pages.
+        </p>
+        <div class="project-star">&#10022;</div>
+      </div>
+
+      <div class="project-card" style="background:var(--mauve-deep)">
+        <div class="project-num">02</div>
+        <div class="project-name">Personal Portfolio</div>
+        <div class="project-tech">HTML &middot; CSS</div>
+        <p class="project-desc">
+          Responsive personal portfolio showcasing skills, projects, and contact info. Clean UI layout using Flexbox. The OG version — before I started going unhinged with design.
+        </p>
+        <div class="project-star">&#10022;</div>
+      </div>
+
+      <div class="project-card" style="background:#9e6070">
+        <div class="project-num">03</div>
+        <div class="project-name">Taylor Swift Quiz App</div>
+        <div class="project-tech">React &middot; Vite &middot; useState &middot; props</div>
+        <p class="project-desc">
+          Rebuilt my vanilla JS quiz app in React as a TS-themed challenge — complete with Eras styling. Practised useState, .map(), and component architecture.
+        </p>
+        <div class="project-star">&#9733;</div>
+      </div>
+
+      <div class="project-card" style="background:var(--mauve-dark)">
+        <div class="project-num">04</div>
+        <div class="project-name">Mood Tracker</div>
+        <div class="project-tech">Vanilla JS &middot; DOM manipulation &middot; Arrays</div>
+        <p class="project-desc">
+          Mini project to track daily moods with dynamic DOM manipulation. Part of my structured frontend learning journey — proof that I learn by building, not just watching tutorials.
+        </p>
+        <div class="project-star">&#10038;</div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="exp-section">
+    <div class="exp-left reveal">
+      <div class="section-label">where i've been</div>
+      <div class="exp-heading">exp-<br>erience</div>
+      <div class="exp-quote">"led creative, built things, showed up." — that's the short version.</div>
+    </div>
+    <div class="exp-right reveal">
+      <div class="exp-card">
+        <div class="exp-role">Creative Executive</div>
+        <div class="exp-org">MICROSOFT LEARN STUDENT AMBASSADORS &ndash; KIIT &middot; FEB 2025 &ndash; PRESENT</div>
+        <ul class="exp-bullets">
+          <li>Planned &amp; executed technical events for 200+ participants</li>
+          <li>Led creative design for events — social media graphics, promotional assets</li>
+          <li>Supported students in learning development tools &amp; emerging tech</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="visual-section">
+    <div class="v-label reveal">an eye for aesthetics</div>
+    <div class="v-heading reveal">visuals.<br>design.<br>vibe. &#10022;</div>
+    <div class="gallery-grid reveal">
+      <div class="gallery-item">
+        <div class="g-num">01</div>
+        <span class="gallery-item-label">graphic design work</span>
+      </div>
+      <div class="gallery-item">
+        <div class="g-num">02</div>
+        <span class="gallery-item-label">social media assets</span>
+      </div>
+      <div class="gallery-item">
+        <div class="g-num">03</div>
+        <span class="gallery-item-label">event creatives</span>
+      </div>
+      <div class="gallery-item">
+        <div class="g-num">04</div>
+        <span class="gallery-item-label">ui/web design</span>
+      </div>
+    </div>
+    <div style="margin-top:24px;font-family:'Caveat',cursive;font-size:14px;color:rgba(245,237,232,0.4);text-align:right;">
+      &rarr; swap in your actual work above &#10038;
+    </div>
+  </section>
+
+  <section class="thanks-section" id="contact">
+    <div class="thanks-dots"></div>
+    <div class="thanks-left">
+      <div class="thanks-heading">THANK<br>YOU &#10022;</div>
+      <div class="thanks-sub">for taking a look into my creative &amp; technical mind. let's build something cool.</div>
+    </div>
+    <div class="thanks-right">
+      <div class="contact-row">
+        <span class="contact-label">EMAIL</span>
+        <span class="contact-val">avnikashyap777@gmail.com</span>
+      </div>
+      <div class="contact-row">
+        <span class="contact-label">GITHUB</span>
+        <span class="contact-val">github.com/avnikashyap777</span>
+      </div>
+      <div class="contact-row">
+        <span class="contact-label">BASED IN</span>
+        <span class="contact-val">Bhubaneswar, Odisha</span>
+      </div>
+      <div class="contact-row">
+        <span class="contact-label">OPEN TO</span>
+        <span class="contact-val">internships &middot; collabs &middot; cool projects</span>
+      </div>
+      <div style="margin-top:8px">
+        <div style="font-family:'Caveat',cursive;font-size:28px;color:rgba(255,248,245,0.7);transform:rotate(-2deg);display:inline-block">A. Kashyap &#10038;</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="footer-strip">
+    <p>&copy; 2025 AVNI KASHYAP &middot; CS @ KIIT</p>
+    <div class="footer-star">&#10022;</div>
+    <p>BUILT WITH TOO MUCH PINTEREST ENERGY</p>
+  </div>
+
+</div>
+
+<script>
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('revealed'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
